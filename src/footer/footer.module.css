@@ -1,0 +1,67 @@
+.footer {
+  margin-top: 200px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.container {
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.column {
+  flex: 1;
+  padding: 10px;
+}
+
+.heading {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.contactInfo {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.icon {
+  margin-right: 5px;
+}
+
+.link {
+  display: block;
+  color: #000;
+  text-decoration: none;
+  margin-bottom: 5px;
+}
+
+.socialLinks {
+  display: flex;
+  align-items: center;
+}
+
+.socialIcon {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+}
+
+.bottomRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.copyRight {
+  flex: 1;
+}
+
+.badge {
+  margin-left: 10px;
+}
