@@ -5,8 +5,7 @@ import {
   IconPhone,
   IconMail,
   IconMapPin,
-  IconX,
-  IconBrandFacebook,
+  IconBrandLinkedin,
   IconBrandInstagram,
   IconBrandTelegram,
 } from "@tabler/icons-react";
@@ -65,27 +64,26 @@ const Footer = () => {
               Follow Us
             </Text>
             <div className={styles.socialLinks}>
-              <IconX className={styles.socialIcon} />
               <a
-                href="https://www.facebook.com/your-facebook-page"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <IconBrandFacebook className={styles.socialIcon} />
-              </a>
-              <a
-                href="https://www.instagram.com/your-instagram-page"
+                href="https://www.instagram.com/code_for_digital_india/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <IconBrandInstagram className={styles.socialIcon} />
               </a>
               <a
-                href="https://www.telegram.com/your-instagram-page"
+                href="https://t.me/CodeForDigitallIndia"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <IconBrandTelegram className={styles.socialIcon} />
+              </a>
+              <a
+                href="https://www.linkedin.com/company/codefordigitalindia/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <IconBrandLinkedin className={styles.socialIcon} />
               </a>
             </div>
           </div>

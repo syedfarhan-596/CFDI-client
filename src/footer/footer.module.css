@@ -5,6 +5,7 @@
 .row {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   align-items: center;
 }
 .container {
@@ -16,6 +17,7 @@
 .column {
   flex: 1;
   padding: 10px;
+  flex-wrap: wrap;
 }
 
 .heading {

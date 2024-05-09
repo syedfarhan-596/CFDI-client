@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Code for Digital India",
+  "name": "Code for Digital India - Your Partner in Technology Solutions",
   "icons": [
     {
       "src": "favicon.ico",
@@ -18,8 +18,12 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
+  "start_url": "/",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "description": "Code for Digital India is a software and IT consultation company focused on helping businesses grow with technology solutions.",
+  "keywords": "Code for Digital India, technology solutions, IT consultation, business growth",
+  "lang": "en",
+  "orientation": "portrait"
 }

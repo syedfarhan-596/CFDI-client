@@ -33,8 +33,8 @@ function App() {
         <Route path={"/privacy"} element={<PrivacyPolicy />}></Route>
         <Route path={"/internship"} element={<Internship />}></Route>
         <Route path={"/services"} element={<Services />}></Route>
-
         <Route path={"/terms"} element={<TermsOfService />}></Route>
+
         {/* user routes  */}
         <Route path={"/login"} element={<LoginPage />}></Route>
         <Route path={"/register"} element={<RegisterPage />}></Route>
@@ -48,6 +48,8 @@ function App() {
           element={<AdminDashboardMain />}
         ></Route>
         <Route path={"/admin/user/:userId"} element={<UserComponent />}></Route>
+
+        <Route path="*" element={<h1>Resource Not Found</h1>}></Route>
       </Routes>
     </BrowserRouter>
   );
