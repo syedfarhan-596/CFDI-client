@@ -197,6 +197,9 @@ function Header() {
                 Log in
               </Button>
               <Button onClick={() => navigate("/register")}>Sign up</Button>
+              <Button bg="red" onClick={() => navigate("/admin/login")}>
+                Admin{" "}
+              </Button>
             </Group>
 
             <Burger
