@@ -29,7 +29,7 @@ import {
 import { useForm } from "react-hook-form";
 import Cookie from "universal-cookie";
 import axios from "axios";
-import { adminUrl, server } from "../../../server-url";
+import { adminUrl } from "../../../server-url";
 const User = () => {
   const navigate = useNavigate();
   const { userId } = useParams();
@@ -222,11 +222,7 @@ const User = () => {
                     {user?.status?.offerLetter && (
                       <Text fz="xs" c="green">
                         Check uploaded offer letter{" "}
-                        <a
-                          href={`${server}/offerletter/${user?.status?.offerLetter}`}
-                        >
-                          Check here
-                        </a>
+                        <a href={user.status.offerLetter}>Check here</a>
                       </Text>
                     )}
                     <Flex justify={"space-around"}>
