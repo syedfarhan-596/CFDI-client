@@ -8,11 +8,9 @@ import {
   BackgroundImage,
 } from "@mantine/core";
 
-import { server } from "../../server-url";
 import Certificate from "../../assets/certificate.jpg";
 import Offerletter from "../../assets/offerletter.jpg";
 const Certification = ({ user }) => {
-  console.log(user);
   return (
     <Box>
       <Container>
