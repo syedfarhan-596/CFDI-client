@@ -11,8 +11,8 @@ import {
 import { server } from "../../server-url";
 import Certificate from "../../assets/certificate.jpg";
 import Offerletter from "../../assets/offerletter.jpg";
-
 const Certification = ({ user }) => {
+  console.log(user);
   return (
     <Box>
       <Container>
@@ -27,7 +27,9 @@ const Certification = ({ user }) => {
                   gradient={{ from: "pink", to: "yellow" }}
                   fw={500}
                   fz="lg"
-                  href={`${server}/offerletter/${user.status.offerLetter}`}
+                  href={user.status.offerLetter}
+                  target="_blank"
+                  rel="noreferrer"
                 >
                   DOWNLOAD OFFER LETTER
                 </Anchor>
@@ -46,7 +48,7 @@ const Certification = ({ user }) => {
                   gradient={{ from: "pink", to: "yellow" }}
                   fw={500}
                   fz="lg"
-                  href={`${server}/certificate/${user.status.completionCertificate}`}
+                  href={user.status.completionCertificate}
                 >
                   DOWNLOAD CERTIFICATE
                 </Anchor>

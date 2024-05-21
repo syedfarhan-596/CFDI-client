@@ -1,5 +1,5 @@
-export const userUrl = "http://localhost:4000/api/v1/user";
+export const userUrl = "https://cfdi-server.onrender.com/api/v1/user";
 
-export const adminUrl = "http://localhost:4000/api/v1/admin";
+export const adminUrl = "https://cfdi-server.onrender.com/api/v1/admin";
 
-export const server = "http://localhost:4000";
+export const server = "https://cfdi-server.onrender.com";

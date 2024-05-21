@@ -1,4 +1,4 @@
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect, useCallback } from "react";
 import { useDisclosure } from "@mantine/hooks";
 import TaskForm from "./tasks";
@@ -191,7 +191,9 @@ const User = () => {
                 {new Date(user?.createdAt).getMonth() + 1}-
                 {new Date(user?.createdAt).getFullYear()}
               </Title>
-              <Link to={`${server}/resume/${user?.resume}`}>Resume</Link>
+              <a href={user?.resume} target="_blank" rel="noreferrer">
+                Resume
+              </a>
               <Space h="xl"></Space>
               <Button type="submit" w="100%">
                 {isSubmitting ? <Loader /> : "Update"}
