@@ -91,7 +91,6 @@ export function AdminRegisterPage() {
       secret,
       name,
     });
-    console.log(email, password, password2, secret);
     if (password !== password2) {
       setError("root", {
         message: "Password mismatch",
