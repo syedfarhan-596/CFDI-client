@@ -39,8 +39,6 @@ const Profile = ({ user, setUser }) => {
         headers: { Authorization: `Bearer ${cookie.get("userAuth")}` },
       });
       setUser(data.user);
-      alert("done");
-      window.location.reload();
     } catch (error) {
       setError("root", { message: error.response.data.message });
     }

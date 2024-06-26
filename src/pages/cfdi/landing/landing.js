@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Text, Title } from "@mantine/core";
 import { useReducedMotion } from "@mantine/hooks";
 import Header from "../../../header/header";
-import LandingImage from "../../../assets/landing.jpg";
+import LandingImage from "../../../assets/landing.png";
 import styles from "./landing.module.css";
 import Footer from "../../../footer/footer";
 

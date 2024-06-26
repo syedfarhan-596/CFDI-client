@@ -7,7 +7,7 @@ const PrivacyPolicy = () => {
   return (
     <>
       <Header />
-      <Container size="xl" mt="sm">
+      <Container size="xl" mt="xl">
         <Text size="lg" style={{ fontWeight: "bold" }}>
           Privacy Policy
         </Text>

@@ -22,6 +22,7 @@ import Internship from "./pages/cfdi/internship/internship";
 import Services from "./pages/cfdi/services/services";
 import PrivacyPolicy from "./pages/cfdi/privacy/privacy";
 import TermsOfService from "./pages/cfdi/terms/terms";
+import VerifyEmail from "./pages/user/verify";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
 
         {/* user routes  */}
         <Route path={"/login"} element={<LoginPage />}></Route>
+        <Route path={"/user/verify/:email"} element={<VerifyEmail />}></Route>
         <Route path={"/register"} element={<RegisterPage />}></Route>
         <Route path={"forgot/password"} element={<ForgotPassword />}></Route>
         <Route path={"/dashboard"} element={<DashboardMain />}></Route>

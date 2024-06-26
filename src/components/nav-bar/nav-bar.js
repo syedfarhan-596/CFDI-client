@@ -10,8 +10,8 @@ import {
   IconSun,
   IconMoon,
 } from "@tabler/icons-react";
-import Logol from "../../assets/logol.jpg";
-import LogoD from "../../assets/logod.jpg";
+import Logol from "../../assets/logol.png";
+import LogoD from "../../assets/logod.png";
 import classes from "./nav-bar.module.css";
 
 import Cookie from "universal-cookie";

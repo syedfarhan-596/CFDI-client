@@ -46,7 +46,7 @@ const User = () => {
       });
       setUser(data.user);
     } catch (error) {
-      console.log(error);
+      alert(error.response.data.message);
     }
   }, [token, userId]);
 
@@ -113,7 +113,7 @@ const User = () => {
 
         return { data };
       } catch (error) {
-        console.log(error);
+        alert(error.response.data.message);
       }
     };
     switch (type) {

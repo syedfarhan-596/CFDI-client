@@ -51,8 +51,7 @@ const Password = ({ setUser }) => {
           }
         );
         setUser(data.user);
-        alert("done");
-        window.location.reload();
+        alert("updated successfully");
       } catch (error) {
         setError("root", { message: error.response.data.message });
       }

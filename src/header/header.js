@@ -17,8 +17,8 @@ import {
   useMantineTheme,
   Container,
 } from "@mantine/core";
-import LogoL from "../assets/logol.jpg";
-import LogoD from "../assets/logod.jpg";
+import LogoL from "../assets/logol.png";
+import LogoD from "../assets/logod.png";
 import { useDisclosure } from "@mantine/hooks";
 import {
   IconNotification,
@@ -116,7 +116,7 @@ function Header() {
             <Link to="/">
               <img
                 src={computedColorScheme === "dark" ? LogoD : LogoL}
-                width={100}
+                width={200}
                 alt="code for digital india"
               />
             </Link>
@@ -174,7 +174,10 @@ function Header() {
                           Their food sources have decreased, and their numbers
                         </Text>
                       </div>
-                      <Button onClick={() => navigate()} variant="default">
+                      <Button
+                        onClick={() => navigate("/register")}
+                        variant="default"
+                      >
                         Get started
                       </Button>
                     </Group>
@@ -197,9 +200,6 @@ function Header() {
                 Log in
               </Button>
               <Button onClick={() => navigate("/register")}>Sign up</Button>
-              <Button bg="red" onClick={() => navigate("/admin/login")}>
-                Admin{" "}
-              </Button>
             </Group>
 
             <Burger

@@ -9,8 +9,8 @@ import {
   IconSun,
   IconMoon,
 } from "@tabler/icons-react";
-import LogoL from "../../../assets/logol.jpg";
-import LogoD from "../../../assets/logod.jpg";
+import LogoL from "../../../assets/logol.png";
+import LogoD from "../../../assets/logod.png";
 import classes from "./nav-bar.module.css";
 import { useMantineColorScheme, useComputedColorScheme } from "@mantine/core";
 import Cookie from "universal-cookie";

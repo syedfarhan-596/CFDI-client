@@ -1,7 +1,6 @@
 import {
   TextInput,
   PasswordInput,
-  Checkbox,
   Anchor,
   Paper,
   Title,
@@ -107,7 +106,7 @@ export function LoginForm({
             </Text>
           )}
           <Group justify="space-between" mt="lg">
-            <Checkbox label="Remember me" />
+            <div></div>
             <Link to={forgotLocation} style={{ textDecoration: "none" }}>
               <Anchor component="button" size="sm">
                 Forgot password?

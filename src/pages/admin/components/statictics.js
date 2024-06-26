@@ -28,7 +28,7 @@ const Statistics = () => {
       });
       setStateData(dataWithColors);
     } catch (error) {
-      console.log(error);
+      alert(error.response.data.message);
     }
   }, [token]);
 
@@ -36,7 +36,6 @@ const Statistics = () => {
     FetchStatDate();
   }, [FetchStatDate]);
 
-  console.log(statData);
   return (
     <Box>
       <Title order={3} ta="center">

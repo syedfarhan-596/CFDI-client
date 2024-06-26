@@ -39,7 +39,6 @@ export function ForgotPassword() {
     try {
       const { data } = await axios.post(`${userUrl}/sendotp`, {
         email,
-        reset: true,
       });
       alert(data.message);
       open();
