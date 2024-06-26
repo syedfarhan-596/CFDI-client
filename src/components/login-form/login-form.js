@@ -66,6 +66,8 @@ export function LoginForm({
       });
     }
   };
+
+  console.log(process.env.REACT_APP_USER_URL);
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Container size={420} my={40}>
