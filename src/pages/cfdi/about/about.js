@@ -1,9 +1,36 @@
 import { Divider, Title, Text, Container } from "@mantine/core";
 import Header from "../../../header/header";
 import Footer from "../../../footer/footer";
+import { Helmet } from "react-helmet";
 const About = () => {
   return (
     <>
+      <Helmet>
+        <title>About CodeForDigitalIndia</title>
+        <meta
+          name="description"
+          content="Learn more about CodeForDigitalIndia. Our mission, values, and the team that drives our initiatives in providing internships and certifications."
+        />
+        <meta
+          name="keywords"
+          content="about us, CodeForDigitalIndia, mission, values, team"
+        />
+        <meta property="og:title" content="About CodeForDigitalIndia" />
+        <meta
+          property="og:description"
+          content="Learn more about CodeForDigitalIndia. Our mission, values, and the team that drives our initiatives in providing internships and certifications."
+        />
+        <meta
+          property="og:url"
+          content="https://codefordigitalindia-syed.netlify.app/about"
+        />
+
+        <meta name="twitter:title" content="About CodeForDigitalIndia" />
+        <meta
+          name="twitter:description"
+          content="Learn more about CodeForDigitalIndia. Our mission, values, and the team that drives our initiatives in providing internships and certifications."
+        />
+      </Helmet>
       <Header />
 
       <Container size="xl" mt="sm">

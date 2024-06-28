@@ -8,6 +8,7 @@ import DataScienceInternshipImage from "../../../assets/datascience-internship.j
 import GraphicsInternshipImage from "../../../assets/graphics-internship.jpg";
 import styles from "./internship.module.css";
 import Footer from "../../../footer/footer";
+import { Helmet } from "react-helmet";
 
 const Internship = () => {
   const navigate = useNavigate();
@@ -18,6 +19,37 @@ const Internship = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Internships at CodeForDigitalIndia</title>
+        <meta
+          name="description"
+          content="Explore various internship opportunities at CodeForDigitalIndia. Gain practical experience and enhance your skills with our programs."
+        />
+        <meta
+          name="keywords"
+          content="internships, CodeForDigitalIndia, student internships, internship opportunities"
+        />
+        <meta
+          property="og:title"
+          content="Internships at CodeForDigitalIndia"
+        />
+        <meta
+          property="og:description"
+          content="Explore various internship opportunities at CodeForDigitalIndia. Gain practical experience and enhance your skills with our programs."
+        />
+        <meta
+          property="og:url"
+          content="https://codefordigitalindia-syed.netlify.app/internship"
+        />
+        <meta
+          name="twitter:title"
+          content="Internships at CodeForDigitalIndia"
+        />
+        <meta
+          name="twitter:description"
+          content="Explore various internship opportunities at CodeForDigitalIndia. Gain practical experience and enhance your skills with our programs."
+        />
+      </Helmet>
       <Header />
       <Container size="xl" mt="md">
         <div className={styles.grid}>
