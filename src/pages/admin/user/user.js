@@ -99,6 +99,7 @@ const User = () => {
     }
 
     const makeRequest = async (userId, contentType, formData) => {
+      console.log("requesrtign");
       try {
         const { data } = await axios.put(
           `${adminUrl}/user/${userId}`,
@@ -120,8 +121,9 @@ const User = () => {
       case "tasks":
         if (formData?.tasks?.length > 0) {
           formData.type = "tasks";
-          const response = makeRequest(userId, "application/json", formData);
-          response.then(window.location.reload());
+          const { data } = makeRequest(userId, "application/json", formData);
+          alert(data?.message);
+          setUser(data?.user);
         } else {
           setError("root", { message: "Please provide tasks" });
         }
@@ -131,8 +133,9 @@ const User = () => {
       case "taskVerification":
         if (formData.taskVerified === true) {
           formData.type = "taskVerification";
-          const response = makeRequest(userId, "application/json", formData);
-          response.then(window.location.reload());
+          const { data } = makeRequest(userId, "application/json", formData);
+          alert(data?.message);
+          setUser(data?.user);
         } else {
           setError("root", { message: "Please verify the task" });
         }
@@ -142,8 +145,9 @@ const User = () => {
         formData.certificate = formData?.certificate[0];
         formData.type = "certificate";
         if (formData.certificate) {
-          const response = makeRequest(userId, "multipart/form-data", formData);
-          response.then(window.location.reload());
+          const { data } = makeRequest(userId, "multipart/form-data", formData);
+          alert(data?.message);
+          setUser(data?.user);
         } else {
           setError("root", { message: "Please select certificate" });
         }
@@ -157,8 +161,13 @@ const User = () => {
           formData.startDate &&
           formData.submissionDeadline
         ) {
-          const response = makeRequest(userId, "multipart/form-data", formData);
-          response.then(window.location.reload());
+          const { data } = await makeRequest(
+            userId,
+            "multipart/form-data",
+            formData
+          );
+          alert(data?.message);
+          setUser(data?.user);
         } else {
           setError("root", {
             message: "Please provide Offerletter start date and deadline",
