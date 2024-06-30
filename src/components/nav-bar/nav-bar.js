@@ -9,6 +9,7 @@ import {
   IconChecklist,
   IconSun,
   IconMoon,
+  IconWallpaper,
 } from "@tabler/icons-react";
 import Logol from "../../assets/logol.png";
 import LogoD from "../../assets/logod.png";
@@ -23,6 +24,7 @@ const data = [
   { label: "Dashboard", icon: IconDashboard },
   { label: "Your task", icon: IconChecklist },
   { label: "Progress", icon: IconProgress },
+  { label: "Offer Letter", icon: IconWallpaper },
   { label: "Certification", icon: IconCertificate },
   { label: "Profile", icon: IconUserCircle },
   { label: "Password", icon: IconBrandSamsungpass },

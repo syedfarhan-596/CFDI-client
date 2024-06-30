@@ -98,7 +98,7 @@ const VerifyOTP = () => {
               sx={{ width: "100%" }}
             />
             <Button type="submit" fullWidth mt="md">
-              {isSubmitting ? <Loader /> : "Verify"}
+              {isSubmitting ? <Loader color="white" /> : "Verify"}
             </Button>
           </form>
           {errors.root && (

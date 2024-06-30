@@ -1,13 +1,12 @@
+.footer {
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
 .row {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  align-items: center;
-}
-.container {
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
-    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
-    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 
 .column {
@@ -21,20 +20,6 @@
   margin-bottom: 10px;
 }
 
-.contactInfo {
-  margin-bottom: 5px;
-}
-
-.icon {
-  margin-right: 5px;
-}
-
-.link {
-  display: block;
-  text-decoration: none;
-  margin-bottom: 5px;
-}
-
 .socialLinks {
   display: flex;
   align-items: center;
@@ -46,17 +31,12 @@
   margin-right: 10px;
 }
 
-.bottomRow {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 10px;
-}
-
 .copyRight {
   flex: 1;
+  color: #666;
 }
 
 .badge {
   margin-left: 10px;
+  cursor: pointer;
 }

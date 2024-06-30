@@ -1,11 +1,64 @@
-import { Divider, Title, Text, Container } from "@mantine/core";
+import { Divider, Title, Text, Container, Grid, Button } from "@mantine/core";
 import Header from "../../../header/header";
 import Footer from "../../../footer/footer";
 import { Helmet } from "react-helmet";
 import { useComputedColorScheme } from "@mantine/core";
+import { Link } from "react-router-dom";
+
+// Custom SVG Icons for Sections
+const MissionSVG = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+    {/* Custom SVG design for Mission */}
+    <circle cx="50" cy="50" r="40" fill="#FF5722" />
+    <path
+      d="M20,50 L50,80 L80,50 L50,20 Z"
+      fill="none"
+      stroke="#FFF"
+      strokeWidth="5"
+    />
+  </svg>
+);
+
+const TeamSVG = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+    {/* Custom SVG design for Team */}
+    <circle cx="50" cy="50" r="40" fill="#2196F3" />
+    <rect x="35" y="35" width="30" height="30" fill="#FFF" />
+  </svg>
+);
+
+const ProcessSVG = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+    {/* Custom SVG design for How It Works */}
+    <rect x="20" y="20" width="60" height="60" fill="#4CAF50" />
+    <path
+      d="M10,50 L50,90 L90,50 L50,10 Z"
+      fill="none"
+      stroke="#FFF"
+      strokeWidth="5"
+    />
+  </svg>
+);
+
+const ValuesSVG = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+    {/* Custom SVG design for Values */}
+    <polygon points="50,10 90,90 10,90" fill="#9C27B0" />
+    <circle cx="50" cy="50" r="30" fill="#FFF" />
+  </svg>
+);
+
+const ContactSVG = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+    {/* Custom SVG design for Contact */}
+    <path d="M10,30 Q50,-20 90,30 Q50,80 10,30 Z" fill="#FF9800" />
+    <circle cx="50" cy="50" r="30" fill="#FFF" />
+  </svg>
+);
 
 const About = () => {
   const computedColorScheme = useComputedColorScheme("light");
+
   return (
     <>
       <Helmet>
@@ -50,8 +103,8 @@ const About = () => {
                 About Code For Digital India
               </Title>
             }
-          ></Divider>
-          <Container>
+          />
+          <Container mt="lg">
             <Text ta="center">
               At Code for Digital India, we believe in the transformative power
               of technology to drive business growth and societal progress. As a
@@ -62,20 +115,24 @@ const About = () => {
           </Container>
         </div>
         <div>
-          <Container>
+          <Container mt="lg">
             <Divider
               my="xs"
               fs="xl"
               labelPosition="left"
               label={
-                <Title
-                  c={computedColorScheme === "light" ? "black" : "white"}
-                  order={3}
-                >
-                  Our mission
-                </Title>
+                <div>
+                  <MissionSVG />
+
+                  <Title
+                    c={computedColorScheme === "light" ? "black" : "white"}
+                    order={3}
+                  >
+                    Our Mission
+                  </Title>
+                </div>
               }
-            ></Divider>
+            />
             <Text ta="left">
               Our mission is twofold: firstly, we are dedicated to fostering
               business development by providing innovative solutions tailored to
@@ -94,20 +151,23 @@ const About = () => {
           </Container>
         </div>
         <div>
-          <Container>
+          <Container mt="lg">
             <Divider
               my="xs"
               fs="xl"
               labelPosition="right"
               label={
-                <Title
-                  c={computedColorScheme === "light" ? "black" : "white"}
-                  order={3}
-                >
-                  How It Works
-                </Title>
+                <div>
+                  <ProcessSVG />
+                  <Title
+                    c={computedColorScheme === "light" ? "black" : "white"}
+                    order={3}
+                  >
+                    How It Works
+                  </Title>
+                </div>
               }
-            ></Divider>
+            />
             <Text ta="right">
               Interns enrolled in our program are assigned tasks and projects
               designed to enhance their expertise and confidence. Through
@@ -120,96 +180,112 @@ const About = () => {
           </Container>
         </div>
         <div>
-          <Container>
+          <Container mt="lg">
             <Divider
               my="xs"
               fs="xl"
               labelPosition="center"
               label={
-                <Title
-                  c={computedColorScheme === "light" ? "black" : "white"}
-                  order={3}
-                >
-                  Our Approach
-                </Title>
+                <div>
+                  <ValuesSVG />
+
+                  <Title
+                    c={computedColorScheme === "light" ? "black" : "white"}
+                    order={3}
+                  >
+                    Our Values
+                  </Title>
+                </div>
               }
-            ></Divider>
-            <Text ta="center">
-              At Code for Digital India, we understand the importance of
-              affordability, especially for small businesses and low-cost
-              companies. That's why we strive to be cost-efficient in our
-              services, ensuring that even organizations with limited resources
-              can access top-notch technological solutions.
-            </Text>
+            />
+            <Grid cols={3} gutter="lg">
+              <div>
+                <Text ta="center">
+                  <strong>Quality:</strong> We prioritize quality in every
+                  solution and service we deliver.
+                </Text>
+              </div>
+              <div>
+                <Text ta="center">
+                  <strong>Innovation:</strong> We constantly innovate to provide
+                  cutting-edge solutions.
+                </Text>
+              </div>
+              <div>
+                <Text ta="center">
+                  <strong>Integrity:</strong> We uphold the highest ethical
+                  standards in all our interactions.
+                </Text>
+              </div>
+            </Grid>
           </Container>
         </div>
         <div>
-          <Container>
+          <Container mt="lg">
             <Divider
               my="xs"
               fs="xl"
               labelPosition="left"
               label={
-                <Title
-                  c={computedColorScheme === "light" ? "black" : "white"}
-                  order={3}
-                >
-                  Why Choose Us
-                </Title>
+                <div>
+                  <TeamSVG />
+                  <Title
+                    c={computedColorScheme === "light" ? "black" : "white"}
+                    order={3}
+                  >
+                    Client Testimonials
+                  </Title>
+                </div>
               }
-            ></Divider>
-            <ul>
-              <li>
+            />
+            <Grid cols={2} gutter="md">
+              <div>
                 <Text ta="left">
-                  Expertise: Our team comprises skilled professionals with a
-                  wealth of experience in software development and IT
-                  consultancy.
+                  "Code for Digital India transformed our business with their
+                  expert IT consultancy. Highly recommended!"
                 </Text>
-              </li>
-              <li>
-                <Text>
-                  Innovation: We stay at the forefront of technological
-                  advancements, offering innovative solutions tailored to each
-                  client's needs.
+                <Text ta="right">- John Doe, CEO of Example Corp</Text>
+              </div>
+              <div>
+                <Text ta="left">
+                  "Their internship program gave me invaluable experience and
+                  kickstarted my career in tech."
                 </Text>
-              </li>
-              <li>
-                <Text>
-                  Affordability: We believe that cost should not be a barrier to
-                  accessing quality services. Our cost-efficient approach makes
-                  us the ideal partner for businesses of all sizes.
-                </Text>
-              </li>
-              <li>
-                <Text>
-                  Commitment to Talent: Through our internship program, we are
-                  committed to nurturing the next generation of tech talent,
-                  empowering them to succeed in the industry.
-                </Text>
-              </li>
-            </ul>
+                <Text ta="right">- Jane Smith, Intern at Example Corp</Text>
+              </div>
+            </Grid>
           </Container>
         </div>
         <div>
-          <Container>
+          <Container mt="lg">
             <Divider
               my="xs"
               fs="xl"
               labelPosition="right"
               label={
-                <Title
-                  c={computedColorScheme === "light" ? "black" : "white"}
-                  order={3}
-                >
-                  Get in Touch
-                </Title>
+                <div>
+                  <ContactSVG />
+                  <Title
+                    c={computedColorScheme === "light" ? "black" : "white"}
+                    order={3}
+                  >
+                    Get in Touch
+                  </Title>
+                </div>
               }
-            ></Divider>
+            />
             <Text ta="right">
               Ready to take your business to the next level? Partner with Code
               for Digital India today. Contact us to learn more about our
               services and how we can help you achieve your goals.
             </Text>
+            <Container mt="md" align="center">
+              <Link to="/contact" style={{ textDecoration: "none" }}>
+                <Button size="lg" variant="outline" radius="xl">
+                  Contact Us
+                </Button>
+              </Link>
+            </Container>
           </Container>
         </div>
       </Container>

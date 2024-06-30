@@ -129,7 +129,7 @@ export function LoginForm({
             style={{ backgroundColor: "rgba(0, 137, 255, 1)" }}
             mt="xl"
           >
-            {isSubmitting ? <Loader size="sm" color="white" /> : "Sign in"}
+            {isSubmitting ? <Loader color="white" /> : "Sign in"}
           </Button>
         </Paper>
       </Container>

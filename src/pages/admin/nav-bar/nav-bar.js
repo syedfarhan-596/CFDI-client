@@ -74,7 +74,7 @@ export function AdminNavbar({ active, setActive, match, name }) {
             alt="Code For Digital India"
             src={computedColorScheme === "dark" ? LogoD : LogoL}
             width="100%"
-            style={{ borderRadius: "50%", maxWidth: "200px" }}
+            style={{ maxWidth: "200px" }}
           />
         </Group>
         <Title order={5}>{name?.toUpperCase()}</Title>

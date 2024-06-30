@@ -1,6 +1,8 @@
+/* services.module.css */
+
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 20px;
 }
 
@@ -9,48 +11,25 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px;
-  background-color: #f8f9fa;
-  border: 1px solid #dee2e6;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.contactCard {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  background-color: #f8f9fa;
-  border: 1px solid #dee2e6;
+  padding: 25px;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .icon {
-  width: 48px;
-  height: 48px;
-  margin-bottom: 10px;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 20px;
 }
 
 .title {
-  font-size: 20px;
+  font-size: 24px;
   font-weight: bold;
   text-align: center;
   margin-bottom: 10px;
 }
 
 .description {
-  font-size: 14px;
-  text-align: center;
-}
-
-.contactText {
   font-size: 16px;
-  margin-bottom: 10px;
-}
-
-.contactButton {
-  margin-top: 10px;
+  text-align: center;
 }

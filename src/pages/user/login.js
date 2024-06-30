@@ -1,9 +1,12 @@
 import { LoginForm } from "../../components/login-form/login-form";
 import { userUrl } from "../../server-url";
+import Header from "../../header/header";
+import Footer from "../../footer/footer";
 
 const LoginPage = () => {
   return (
     <>
+      <Header />
       <LoginForm
         Url={userUrl}
         auth="userAuth"
@@ -12,6 +15,7 @@ const LoginPage = () => {
         forgotLocation="/forgot/password"
         SaveName="name"
       />
+      <Footer />
     </>
   );
 };

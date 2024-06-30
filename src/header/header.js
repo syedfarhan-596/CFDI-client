@@ -190,7 +190,10 @@ function Header() {
               <Link to="/internship" className={classes.link}>
                 Internship
               </Link>
-              <Button onClick={toggleColorScheme} variant="link">
+              <Link to="/contact" className={classes.link}>
+                Contact
+              </Link>
+              <Button onClick={toggleColorScheme} variant="default">
                 {computedColorScheme === "dark" ? <IconSun /> : <IconMoon />}
               </Button>
             </Group>
@@ -233,7 +236,11 @@ function Header() {
             </Link>
             <UnstyledButton className={classes.link} onClick={toggleLinks}>
               <Center inline>
-                <Box component="span" mr={5}>
+                <Box
+                  onClick={() => navigate("/services")}
+                  component="span"
+                  mr={5}
+                >
                   Services
                 </Box>
                 <IconChevronDown
@@ -249,7 +256,10 @@ function Header() {
             <Link to="/internship" className={classes.link}>
               Internship
             </Link>
-            <Button onClick={toggleColorScheme} variant="link">
+            <Link to="/contact" className={classes.link}>
+              Contact
+            </Link>
+            <Button onClick={toggleColorScheme} variant="default">
               {computedColorScheme === "dark" ? <IconSun /> : <IconMoon />}
             </Button>
 

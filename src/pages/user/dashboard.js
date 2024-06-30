@@ -11,6 +11,8 @@ import { userUrl } from "../../server-url";
 
 import Dashboard from "../../components/dashboard/dashboard";
 
+import OfferLetter from "../../components/dashboard/offerletter";
+
 import Progress from "../../components/dashboard/progress";
 
 import Task from "../../components/dashboard/task";
@@ -44,6 +46,9 @@ const DashboardMain = () => {
       }
       case "Your task": {
         return <Task user={user} />;
+      }
+      case "Offer Letter": {
+        return <OfferLetter user={user} />;
       }
       case "Certification": {
         return <Certification user={user} />;

@@ -6,34 +6,36 @@ import {
   BackgroundImage,
 } from "@mantine/core";
 
-import Certificate from "../../assets/certificate.jpg";
-const Certification = ({ user }) => {
+import Offerletter from "../../assets/offerletter.jpg";
+const OfferLetter = ({ user }) => {
   return (
     <Container>
       <Paper ta="center" shadow="xl" p="xl">
-        <Title order={4}>CERTIFICATE</Title>
-        {user?.status?.completionCertificate ? (
+        <Title order={4}>OFFER LETTER</Title>
+        {user?.status?.offerLetter ? (
           <>
-            <BackgroundImage h="150" src={Certificate}></BackgroundImage>
+            <BackgroundImage w="50%" src={Offerletter}></BackgroundImage>
             <Anchor
               variant="gradient"
               gradient={{ from: "pink", to: "yellow" }}
               fw={500}
               fz="lg"
-              href={user.status.completionCertificate}
+              href={user.status.offerLetter}
+              target="_blank"
+              rel="noreferrer"
             >
-              DOWNLOAD CERTIFICATE
+              DOWNLOAD OFFER LETTER
             </Anchor>
           </>
         ) : (
           <div>
             <Title order={5}>We are working on it</Title>
             <br />
-            <Title order={5}>Sample Certificate</Title>
+            <Title order={5}>Sample Offer Letter</Title>
             <BackgroundImage
               w="400"
               h="400"
-              src={Certificate}
+              src={Offerletter}
             ></BackgroundImage>
           </div>
         )}
@@ -42,4 +44,4 @@ const Certification = ({ user }) => {
   );
 };
 
-export default Certification;
+export default OfferLetter;

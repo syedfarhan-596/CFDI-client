@@ -155,6 +155,7 @@ export function RegisterForm() {
           <Controller
             control={control}
             name="internshipDomain"
+            required
             render={({ field: { onChange } }) => (
               <Select
                 error={errors?.internshipDomain?.message}
@@ -231,7 +232,7 @@ export function RegisterForm() {
             mt="lg"
             style={{ backgroundColor: "rgba(0, 137, 255, 1)" }}
           >
-            {isSubmitting ? <Loader /> : "Register"}
+            {isSubmitting ? <Loader color="white" /> : "Register"}
           </Button>
         </Paper>
       </Container>
