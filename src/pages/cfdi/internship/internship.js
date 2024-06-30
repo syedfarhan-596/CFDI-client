@@ -6,6 +6,8 @@ import WebInternshipImage from "../../../assets/web-internship.jpg";
 import AppInternshipImage from "../../../assets/app-internship.jpg";
 import DataScienceInternshipImage from "../../../assets/datascience-internship.jpg";
 import GraphicsInternshipImage from "../../../assets/graphics-internship.jpg";
+import NodeJsInternshipImage from "../../../assets/node-internship.jpg";
+import PythonInternshipImage from "../../../assets/python-internship.png";
 import styles from "./internship.module.css";
 import Footer from "../../../footer/footer";
 import { Helmet } from "react-helmet";
@@ -130,6 +132,52 @@ const Internship = () => {
               <Text className={styles.description}>
                 Learn to create captivating designs for various digital
                 platforms.
+              </Text>
+              <Button
+                onClick={handleRegister}
+                className={styles.button}
+                fullWidth
+                variant="light"
+              >
+                Register Now
+              </Button>
+            </div>
+          </Card>
+          <Card className={styles.card}>
+            <Image
+              src={NodeJsInternshipImage}
+              alt="NodeJs Internship"
+              className={styles.image}
+            />
+            <div className={styles.details}>
+              <Text className={styles.title}>
+                NodeJS Development Internship
+              </Text>
+              <Text className={styles.description}>
+                Learn to create robost backend server with NodeJs
+              </Text>
+              <Button
+                onClick={handleRegister}
+                className={styles.button}
+                fullWidth
+                variant="light"
+              >
+                Register Now
+              </Button>
+            </div>
+          </Card>
+          <Card className={styles.card}>
+            <Image
+              src={PythonInternshipImage}
+              alt="Python Internship"
+              className={styles.image}
+            />
+            <div className={styles.details}>
+              <Text className={styles.title}>
+                Python Development Internship
+              </Text>
+              <Text className={styles.description}>
+                Python is the most trending in Web,AI,Data Science, etc.
               </Text>
               <Button
                 onClick={handleRegister}

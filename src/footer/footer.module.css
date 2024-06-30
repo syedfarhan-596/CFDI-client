@@ -1,7 +1,3 @@
-.footer {
-  margin-top: 200px;
-}
-
 .row {
   display: flex;
   justify-content: space-between;
@@ -26,8 +22,6 @@
 }
 
 .contactInfo {
-  display: flex;
-  align-items: center;
   margin-bottom: 5px;
 }
 

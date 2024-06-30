@@ -30,8 +30,14 @@ const Footer = () => {
             <div className={styles.contactInfo}>
               <IconMail className={styles.icon} />
               <Text>
-                <a href="mailto:codefordigitalindai@example.com">
-                  codefordigitalindai@example.com
+                <a href="mailto:codefordigitalindia@gmail.com">
+                  codefordigitalindai@gmail.com
+                </a>
+              </Text>
+
+              <Text>
+                <a href="mailto:info@codefordigitalindia.in">
+                  info@codefordigitalindia.in
                 </a>
               </Text>
             </div>

@@ -2,7 +2,10 @@ import { Divider, Title, Text, Container } from "@mantine/core";
 import Header from "../../../header/header";
 import Footer from "../../../footer/footer";
 import { Helmet } from "react-helmet";
+import { useComputedColorScheme } from "@mantine/core";
+
 const About = () => {
+  const computedColorScheme = useComputedColorScheme("light");
   return (
     <>
       <Helmet>
@@ -40,7 +43,10 @@ const About = () => {
             fs="xl"
             labelPosition="center"
             label={
-              <Title c="black" order={3}>
+              <Title
+                c={computedColorScheme === "light" ? "black" : "white"}
+                order={3}
+              >
                 About Code For Digital India
               </Title>
             }
@@ -62,7 +68,10 @@ const About = () => {
               fs="xl"
               labelPosition="left"
               label={
-                <Title c="black" order={3}>
+                <Title
+                  c={computedColorScheme === "light" ? "black" : "white"}
+                  order={3}
+                >
                   Our mission
                 </Title>
               }
@@ -91,7 +100,10 @@ const About = () => {
               fs="xl"
               labelPosition="right"
               label={
-                <Title c="black" order={3}>
+                <Title
+                  c={computedColorScheme === "light" ? "black" : "white"}
+                  order={3}
+                >
                   How It Works
                 </Title>
               }
@@ -114,7 +126,10 @@ const About = () => {
               fs="xl"
               labelPosition="center"
               label={
-                <Title c="black" order={3}>
+                <Title
+                  c={computedColorScheme === "light" ? "black" : "white"}
+                  order={3}
+                >
                   Our Approach
                 </Title>
               }
@@ -135,7 +150,10 @@ const About = () => {
               fs="xl"
               labelPosition="left"
               label={
-                <Title c="black" order={3}>
+                <Title
+                  c={computedColorScheme === "light" ? "black" : "white"}
+                  order={3}
+                >
                   Why Choose Us
                 </Title>
               }
@@ -179,7 +197,10 @@ const About = () => {
               fs="xl"
               labelPosition="right"
               label={
-                <Title c="black" order={3}>
+                <Title
+                  c={computedColorScheme === "light" ? "black" : "white"}
+                  order={3}
+                >
                   Get in Touch
                 </Title>
               }

@@ -1,4 +1,4 @@
-import { BackgroundImage, Group, Box } from "@mantine/core";
+import { Group, Box } from "@mantine/core";
 import {
   IconDashboard,
   IconCertificate,
@@ -16,9 +16,6 @@ import classes from "./nav-bar.module.css";
 
 import Cookie from "universal-cookie";
 import { useNavigate } from "react-router-dom";
-
-import BGIMGN from "../../assets/background-night.jpg";
-import BGIMGL from "../../assets/background-sky.jpg";
 
 import { useMantineColorScheme, useComputedColorScheme } from "@mantine/core";
 
@@ -68,57 +65,52 @@ export function Navbar({ active, setActive, match, name }) {
       style={match ? { width: "100%" } : { width: "30%" }}
       className={classes.navbar}
     >
-      <BackgroundImage
-        style={{ height: "100%" }}
-        src={computedColorScheme === "dark" ? BGIMGN : BGIMGL}
-      >
-        <Box p="md">
-          <Group
-            className={classes.header}
-            justify={match ? "center" : "space-between"}
-          >
-            <img
-              alt="Code For Digital India"
-              src={computedColorScheme === "dark" ? LogoD : Logol}
-              width="100%"
-              style={{ maxWidth: "200px" }}
-            />
-          </Group>
-          <div
-            style={
-              match
-                ? {
-                    display: "flex",
-                    justifyContent: "space-between",
-                    flexWrap: "wrap",
-                  }
-                : { flex: 1 }
-            }
-          >
-            {links}
-          </div>
+      <Box p="md">
+        <Group
+          className={classes.header}
+          justify={match ? "center" : "space-between"}
+        >
+          <img
+            alt="Code For Digital India"
+            src={computedColorScheme === "dark" ? LogoD : Logol}
+            width="100%"
+            style={{ maxWidth: "200px" }}
+          />
+        </Group>
+        <div
+          style={
+            match
+              ? {
+                  display: "flex",
+                  justifyContent: "space-between",
+                  flexWrap: "wrap",
+                }
+              : { flex: 1 }
+          }
+        >
+          {links}
+        </div>
 
-          <div className={classes.footer}>
-            <p onClick={toggleColorScheme} className={classes.link}>
-              {computedColorScheme === "dark" ? (
-                <>
-                  <IconSun className={classes.linkIcon} stroke={1.5} />
-                  <span>Light</span>
-                </>
-              ) : (
-                <>
-                  <IconMoon className={classes.linkIcon} stroke={1.5} />
-                  <span>dark</span>
-                </>
-              )}
-            </p>
-            <p className={classes.link} onClick={handleLogout}>
-              <IconLogout className={classes.linkIcon} stroke={1.5} />
-              <span>Logout</span>
-            </p>
-          </div>
-        </Box>
-      </BackgroundImage>
+        <div className={classes.footer}>
+          <p onClick={toggleColorScheme} className={classes.link}>
+            {computedColorScheme === "dark" ? (
+              <>
+                <IconSun className={classes.linkIcon} stroke={1.5} />
+                <span>Light</span>
+              </>
+            ) : (
+              <>
+                <IconMoon className={classes.linkIcon} stroke={1.5} />
+                <span>dark</span>
+              </>
+            )}
+          </p>
+          <p className={classes.link} onClick={handleLogout}>
+            <IconLogout className={classes.linkIcon} stroke={1.5} />
+            <span>Logout</span>
+          </p>
+        </div>
+      </Box>
     </nav>
   );
 }
