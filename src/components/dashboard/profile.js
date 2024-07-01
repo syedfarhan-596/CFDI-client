@@ -8,13 +8,10 @@ import {
   Text,
   Title,
 } from "@mantine/core";
-
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-
 import { userUrl } from "../../server-url";
-
 import Cookie from "universal-cookie";
-
 import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -25,11 +22,12 @@ const profileSchema = z.object({
 
 const Profile = ({ user, setUser }) => {
   const cookie = new Cookie();
+  const [notification, setNotification] = useState({ type: "", message: "" });
+
   const {
     register,
     handleSubmit,
     setError,
-
     formState: { isSubmitting, errors },
   } = useForm({ defaultValues: user, resolver: zodResolver(profileSchema) });
 
@@ -39,10 +37,16 @@ const Profile = ({ user, setUser }) => {
         headers: { Authorization: `Bearer ${cookie.get("userAuth")}` },
       });
       setUser(data.user);
+      setNotification({
+        type: "success",
+        message: "Profile updated successfully!",
+      });
     } catch (error) {
       setError("root", { message: error.response.data.message });
+      setNotification({ type: "error", message: error.response.data.message });
     }
   };
+
   return (
     <Box ta="center">
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -53,7 +57,7 @@ const Profile = ({ user, setUser }) => {
             required
             placeholder="First name"
             {...register("name.first")}
-          ></TextInput>
+          />
           {errors.name?.first && (
             <Text component="p" size="sm" c="red">
               {errors.name.first.message}
@@ -64,7 +68,7 @@ const Profile = ({ user, setUser }) => {
             {...register("name.last")}
             required
             placeholder="Last name"
-          ></TextInput>
+          />
           {errors.name?.last && (
             <Text component="p" size="sm" c="red">
               {errors.name.last.message}
@@ -72,17 +76,22 @@ const Profile = ({ user, setUser }) => {
           )}
         </Container>
         <Code>Email:{user?.email}</Code>
-        <br></br>
+        <br />
         <Code>PhNo:{user?.number}</Code>
-        <br></br>
+        <br />
         <Code>Internship:{user?.internshipDomain}</Code>
-        <br></br>
-        {errors.root && (
+        <br />
+        {notification.type === "error" && (
           <Text component="p" size="sm" c="red">
-            {errors.root.message}
+            {notification.message}
           </Text>
         )}
-        <Button w="100%" type="submit">
+        {notification.type === "success" && (
+          <Text component="p" size="sm" c="green">
+            {notification.message}
+          </Text>
+        )}
+        <Button w="100%" type="submit" disabled={isSubmitting}>
           {isSubmitting ? <Loader size="sm" color="white" /> : "Save"}
         </Button>
       </form>

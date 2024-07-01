@@ -14,6 +14,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Header from "../../../header/header";
 import Footer from "../../../footer/footer";
 import styles from "./contact.module.css";
+import axios from "axios";
+import { url } from "../../../server-url";
 
 const schema = z.object({
   name: z.string().nonempty("Name is required"),
@@ -30,9 +32,12 @@ const Contact = () => {
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = (data) => {
-    console.log(data);
-    // Handle form submission logic here
+  const onSubmit = async (data) => {
+    try {
+      await axios.post(`${url}`, { data });
+    } catch (error) {
+      alert(error.response.data.message);
+    }
   };
 
   return (

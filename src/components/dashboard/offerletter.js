@@ -13,8 +13,8 @@ const OfferLetter = ({ user }) => {
       <Paper ta="center" shadow="xl" p="xl">
         <Title order={4}>OFFER LETTER</Title>
         {user?.status?.offerLetter ? (
-          <>
-            <BackgroundImage w="50%" src={Offerletter}></BackgroundImage>
+          <Container size="md">
+            <BackgroundImage h="400" src={Offerletter}></BackgroundImage>
             <Anchor
               variant="gradient"
               gradient={{ from: "pink", to: "yellow" }}
@@ -26,17 +26,13 @@ const OfferLetter = ({ user }) => {
             >
               DOWNLOAD OFFER LETTER
             </Anchor>
-          </>
+          </Container>
         ) : (
           <div>
             <Title order={5}>We are working on it</Title>
             <br />
             <Title order={5}>Sample Offer Letter</Title>
-            <BackgroundImage
-              w="400"
-              h="400"
-              src={Offerletter}
-            ></BackgroundImage>
+            <img width="70%" alt="offer letter" src={Offerletter}></img>
           </div>
         )}
       </Paper>

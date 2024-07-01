@@ -7,7 +7,6 @@ const TaskForm = ({ onSubmit }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit({ tasks });
-    window.location.reload();
   };
   const handleAddTask = () => {
     setTasks([...tasks, { taskName: "", keyPoints: [""] }]);

@@ -77,7 +77,7 @@ export function AdminNavbar({ active, setActive, match, name }) {
             style={{ maxWidth: "200px" }}
           />
         </Group>
-        <Title order={5}>{name?.toUpperCase()}</Title>
+        <Title order={5}>Welcome {name?.toUpperCase()}</Title>
         <div
           style={
             match

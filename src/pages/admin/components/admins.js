@@ -7,13 +7,15 @@ import {
   Button,
   Modal,
   TextInput,
+  Group,
+  Notification,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import axios from "axios";
 import { useEffect, useState, useCallback } from "react";
 import { adminUrl } from "../../../server-url";
 import Cookie from "universal-cookie";
-import { IconTrash } from "@tabler/icons-react";
+import { IconTrash, IconCheck, IconAlertCircle } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
 
 const Admins = () => {
@@ -22,6 +24,7 @@ const Admins = () => {
   const [admins, setAdmins] = useState([]);
   const [deleteAdmin, setDeleteAdmin] = useState({ id: "", secret: "" });
   const [opened, { open, close }] = useDisclosure(false);
+  const [notification, setNotification] = useState({ message: "", type: "" });
 
   let token = cookie.get("adminAuth");
 
@@ -32,7 +35,10 @@ const Admins = () => {
       });
       setAdmins(data.admins);
     } catch (error) {
-      alert(error.response.data.message);
+      setNotification({
+        message: error.response.data.message,
+        type: "error",
+      });
       navigate("/");
     }
   }, [token, navigate]);
@@ -52,46 +58,91 @@ const Admins = () => {
         `${adminUrl}/delete/admin/${deleteAdmin.id}/${deleteAdmin.secret}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      alert(data.message);
+      setNotification({ message: data.message, type: "success" });
+      FetchAllAdmins();
+      close();
     } catch (error) {
-      alert(error.response.data.message);
+      setNotification({
+        message: error.response.data.message,
+        type: "error",
+      });
     }
   };
 
   return (
     <Box>
       <Container>
-        <Flex wrap="wrap">
-          {admins.map((item, key) => {
-            return (
-              <Paper p={10} m={10} shadow="xl">
-                <Box lh={4} key={item.id}>
-                  <Title order={4}>{item.name} </Title>
-                  <Title order={6}>{item.email}</Title>
+        <Flex wrap="wrap" justify="center">
+          {admins.map((item) => (
+            <Paper
+              key={item.id}
+              p="lg"
+              m="md"
+              shadow="xl"
+              radius="md"
+              withBorder
+              style={{ maxWidth: 300 }}
+            >
+              <Box>
+                <Title order={4} align="center">
+                  {item.name}
+                </Title>
+                <Title order={6} align="center" color="dimmed" mb="sm">
+                  {item.email}
+                </Title>
+                <Group position="center">
                   <Button
+                    color="red"
+                    leftIcon={<IconTrash size={16} />}
                     onClick={() => handleAdminDelete(item)}
-                    leftSection={<IconTrash size={14} />}
                   >
                     Delete
                   </Button>
-                </Box>
-              </Paper>
-            );
-          })}
+                </Group>
+              </Box>
+            </Paper>
+          ))}
         </Flex>
       </Container>
-      <Modal opened={opened} onClose={close} title="Delete" centered>
-        <Box p="xl">
+      <Modal opened={opened} onClose={close} title="Confirm Delete" centered>
+        <Box p="md">
           <TextInput
             label="Secret Admin Key"
             placeholder="Enter your secret key"
+            value={deleteAdmin.secret}
             onChange={(e) =>
               setDeleteAdmin({ ...deleteAdmin, secret: e.target.value })
             }
-          ></TextInput>
-          <Button onClick={handleAdminDeleteRequest}>Confirm Delete</Button>
+            mb="md"
+          />
+          <Group position="right">
+            <Button variant="outline" onClick={close}>
+              Cancel
+            </Button>
+            <Button color="red" onClick={handleAdminDeleteRequest}>
+              Confirm Delete
+            </Button>
+          </Group>
         </Box>
       </Modal>
+      {notification.message && (
+        <Notification
+          icon={
+            notification.type === "success" ? (
+              <IconCheck size={18} />
+            ) : (
+              <IconAlertCircle size={18} />
+            )
+          }
+          color={notification.type === "success" ? "green" : "red"}
+          title={notification.type === "success" ? "Success" : "Error"}
+          onClose={() => setNotification({ message: "", type: "" })}
+          disallowClose
+          sx={{ position: "fixed", top: 20, right: 20 }}
+        >
+          {notification.message}
+        </Notification>
+      )}
     </Box>
   );
 };

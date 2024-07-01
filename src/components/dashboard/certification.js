@@ -13,8 +13,8 @@ const Certification = ({ user }) => {
       <Paper ta="center" shadow="xl" p="xl">
         <Title order={4}>CERTIFICATE</Title>
         {user?.status?.completionCertificate ? (
-          <>
-            <BackgroundImage h="150" src={Certificate}></BackgroundImage>
+          <Container size="sm">
+            <BackgroundImage h="400" src={Certificate}></BackgroundImage>
             <Anchor
               variant="gradient"
               gradient={{ from: "pink", to: "yellow" }}
@@ -24,17 +24,13 @@ const Certification = ({ user }) => {
             >
               DOWNLOAD CERTIFICATE
             </Anchor>
-          </>
+          </Container>
         ) : (
           <div>
             <Title order={5}>We are working on it</Title>
             <br />
             <Title order={5}>Sample Certificate</Title>
-            <BackgroundImage
-              w="400"
-              h="400"
-              src={Certificate}
-            ></BackgroundImage>
+            <img width="70%" alt="certificate " src={Certificate}></img>
           </div>
         )}
       </Paper>

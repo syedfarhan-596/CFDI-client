@@ -1,9 +1,18 @@
 import { PieChart } from "@mantine/charts";
-import { Box, Space, Title } from "@mantine/core";
+import {
+  Box,
+  Space,
+  Title,
+  Paper,
+  Text,
+  Loader,
+  Notification,
+} from "@mantine/core";
 import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import Cookie from "universal-cookie";
 import { adminUrl } from "../../../server-url";
+import { IconAlertCircle, IconCheck } from "@tabler/icons-react";
 
 const colors = [
   "#3498db",
@@ -15,34 +24,67 @@ const colors = [
 ];
 
 const Statistics = () => {
-  const [statData, setStateData] = useState([]);
+  const [statData, setStatData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [notification, setNotification] = useState({ message: "", type: "" });
   const cookie = new Cookie();
   let token = cookie.get("adminAuth");
-  const FetchStatDate = useCallback(async () => {
+
+  const FetchStatData = useCallback(async () => {
     try {
       const { data } = await axios(`${adminUrl}/users/stats`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      const dataWithColors = data?.data?.map((item, index) => {
-        return { ...item, color: colors[index] };
-      });
-      setStateData(dataWithColors);
+      const dataWithColors = data?.data?.map((item, index) => ({
+        ...item,
+        color: colors[index % colors.length],
+      }));
+      setStatData(dataWithColors);
+      setLoading(false);
     } catch (error) {
-      alert(error.response.data.message);
+      setNotification({ message: error.response.data.message, type: "error" });
+      setLoading(false);
     }
   }, [token]);
 
   useEffect(() => {
-    FetchStatDate();
-  }, [FetchStatDate]);
+    FetchStatData();
+  }, [FetchStatData]);
 
   return (
     <Box>
-      <Title order={3} ta="center">
-        Users Statistics
-      </Title>
-      <Space h="xl"></Space>
-      <PieChart size="300" data={statData} withTooltip mx="auto"></PieChart>
+      <Paper p="xl" shadow="md" radius="md" withBorder>
+        <Title order={3} align="center">
+          Users Statistics
+        </Title>
+        <Text align="center" color="dimmed" size="sm" mb="md">
+          Overview of user distribution across various stages
+        </Text>
+        <Space h="md" />
+        {loading ? (
+          <Loader size="lg" variant="dots" mx="auto" />
+        ) : (
+          <PieChart size="300" data={statData} withTooltip mx="auto" />
+        )}
+      </Paper>
+      {notification.message && (
+        <Notification
+          icon={
+            notification.type === "success" ? (
+              <IconCheck size={18} />
+            ) : (
+              <IconAlertCircle size={18} />
+            )
+          }
+          color={notification.type === "success" ? "green" : "red"}
+          title={notification.type === "success" ? "Success" : "Error"}
+          onClose={() => setNotification({ message: "", type: "" })}
+          disallowClose
+          sx={{ position: "fixed", top: 20, right: 20 }}
+        >
+          {notification.message}
+        </Notification>
+      )}
     </Box>
   );
 };

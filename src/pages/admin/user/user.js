@@ -14,22 +14,22 @@ import {
   Text,
   Box,
   Container,
-  Code,
   Title,
   Button,
   Flex,
-  Space,
   Input,
   Checkbox,
   Paper,
   Modal,
-  Loader,
+  Notification,
+  Anchor,
 } from "@mantine/core";
 
 import { useForm } from "react-hook-form";
 import Cookie from "universal-cookie";
 import axios from "axios";
 import { adminUrl } from "../../../server-url";
+
 const User = () => {
   const navigate = useNavigate();
   const { userId } = useParams();
@@ -39,6 +39,21 @@ const User = () => {
   const [opened, { open, close }] = useDisclosure(false);
   const [checkTask, { open: taskOpen, close: taskClose }] =
     useDisclosure(false);
+  const [notification, setNotification] = useState({
+    message: "",
+    visible: false,
+    type: "info", // info, success, warning, error
+  });
+
+  const showNotification = useCallback(
+    (message, type = "info") => {
+      setNotification({ message, visible: true, type });
+      setTimeout(() => {
+        setNotification({ ...notification, visible: false });
+      }, 5000); // Auto-hide after 5 seconds
+    },
+    [notification]
+  );
   const FetchUser = useCallback(async () => {
     try {
       const { data } = await axios(`${adminUrl}/user/${userId}`, {
@@ -46,9 +61,9 @@ const User = () => {
       });
       setUser(data.user);
     } catch (error) {
-      alert(error.response.data.message);
+      showNotification(error.response.data.message, "error");
     }
-  }, [token, userId]);
+  }, [token, userId, showNotification]);
 
   useEffect(() => {
     FetchUser();
@@ -74,6 +89,7 @@ const User = () => {
     formState: { isSubmitting, errors },
     setError,
   } = useForm();
+
   const onSubmit = async (formData) => {
     // Assuming user is available from the component's state
     if (!user) {
@@ -99,7 +115,6 @@ const User = () => {
     }
 
     const makeRequest = async (userId, contentType, formData) => {
-      console.log("requesrtign");
       try {
         const { data } = await axios.put(
           `${adminUrl}/user/${userId}`,
@@ -112,30 +127,27 @@ const User = () => {
           }
         );
 
-        return { data };
+        showNotification(data.message, "success");
+        setUser(data.user);
       } catch (error) {
-        alert(error.response.data.message);
+        showNotification(error.response.data.message, "error");
       }
     };
+
     switch (type) {
       case "tasks":
         if (formData?.tasks?.length > 0) {
           formData.type = "tasks";
-          const { data } = makeRequest(userId, "application/json", formData);
-          alert(data?.message);
-          setUser(data?.user);
+          makeRequest(userId, "application/json", formData).then(() => close());
         } else {
           setError("root", { message: "Please provide tasks" });
         }
-
         break;
 
       case "taskVerification":
         if (formData.taskVerified === true) {
           formData.type = "taskVerification";
-          const { data } = makeRequest(userId, "application/json", formData);
-          alert(data?.message);
-          setUser(data?.user);
+          makeRequest(userId, "application/json", formData);
         } else {
           setError("root", { message: "Please verify the task" });
         }
@@ -145,15 +157,13 @@ const User = () => {
         formData.certificate = formData?.certificate[0];
         formData.type = "certificate";
         if (formData.certificate) {
-          const { data } = makeRequest(userId, "multipart/form-data", formData);
-          alert(data?.message);
-          setUser(data?.user);
+          makeRequest(userId, "multipart/form-data", formData);
         } else {
           setError("root", { message: "Please select certificate" });
         }
         break;
+
       case "offerletter":
-        // Handle offer letter update with startDate and submissionDeadline
         formData.type = "offerletter";
         formData.offerletter = formData.offerletter[0];
         if (
@@ -161,55 +171,106 @@ const User = () => {
           formData.startDate &&
           formData.submissionDeadline
         ) {
-          const { data } = await makeRequest(
-            userId,
-            "multipart/form-data",
-            formData
-          );
-          alert(data?.message);
-          setUser(data?.user);
+          await makeRequest(userId, "multipart/form-data", formData);
         } else {
           setError("root", {
             message: "Please provide Offerletter start date and deadline",
           });
         }
-
         break;
+
       default:
-        alert("something went wrong");
+        showNotification("Something went wrong", "error");
+    }
+  };
+
+  const handleUserDelete = async (userId) => {
+    if (window.confirm("Sure want to delete?")) {
+      try {
+        await axios.delete(`${adminUrl}/delete/${userId}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        alert("user deleted");
+        navigate("/admin/dashboard");
+      } catch (error) {
+        setNotification(error.response.data.message, "error");
+      }
+    }
+  };
+
+  const handleDelete = async (type) => {
+    if (window.confirm("Sure want to delete?")) {
+      try {
+        const { data } = await axios.delete(
+          `${adminUrl}/delete/${userId}/${type}`,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+        setUser(data?.user);
+        showNotification(`Deleted users ${type}`, "success");
+      } catch (error) {
+        showNotification(error.response.data.message, "error");
+      }
     }
   };
 
   return (
     <Container>
       <Box mt={40}>
+        {notification.visible && (
+          <Notification
+            title={notification.type === "error" ? "Error" : "Notification"}
+            c={notification.type === "error" ? "red" : "green"}
+            onClose={() => setNotification({ ...notification, visible: false })}
+            shadow="sm"
+            style={{ marginBottom: "20px" }}
+          >
+            {notification.message}
+          </Notification>
+        )}
+
         <form onSubmit={handleSubmit(onSubmit)}>
           <Flex wrap="wrap" justify="space-evenly">
             <Box style={{ display: "block" }} mb={20}>
-              <Title order={3}>First Name:- {user?.name?.first}</Title>
-              <Space h="xl"></Space>
-              <Title order={3}>Last Name:- {user?.name?.last}</Title>
-              <Space h="xl"></Space>
-              <Title order={3}>Internship:- {user?.internshipDomain}</Title>
-              <Space h="xl"></Space>
-              <Title order={3}>Email:{user?.email}</Title>
-              <Space h="xl"></Space>
-
-              <Title order={3}>
-                Internship:- {new Date(user?.createdAt).getDate()}-
-                {new Date(user?.createdAt).getMonth() + 1}-
-                {new Date(user?.createdAt).getFullYear()}
+              <Title m="md" order={3}>
+                First Name: {user?.name?.first}
               </Title>
-              <a href={user?.resume} target="_blank" rel="noreferrer">
-                Resume
-              </a>
-              <Space h="xl"></Space>
-              <Button type="submit" w="100%">
-                {isSubmitting ? <Loader /> : "Update"}
+              <Title m="md" order={3}>
+                Last Name: {user?.name?.last}
+              </Title>
+              <Title m="md" order={3}>
+                Internship: {user?.internshipDomain}
+              </Title>
+              <Title m="md" order={3}>
+                Email: {user?.email}
+              </Title>
+              <Title m="md" order={3}>
+                Internship Date:{" "}
+                {new Date(user?.createdAt).toLocaleDateString()}
+              </Title>
+
+              <Anchor href={user?.resume} target="_blank" rel="noreferrer">
+                <Button fullWidth m="md">
+                  DownLoad Resume
+                </Button>
+              </Anchor>
+              <br />
+              <Button m="md" onClick={taskOpen} fullWidth>
+                Check tasks
               </Button>
-              <Space h="xl"></Space>
-              <Button w="100%" onClick={() => navigate("/admin/dashboard")}>
+
+              <Button
+                m="md"
+                fullWidth
+                onClick={() => navigate("/admin/dashboard")}
+              >
                 Go Back
+              </Button>
+
+              <Button m="md" type="submit" loading={isSubmitting} fullWidth>
+                Update
+              </Button>
+              <Button m="md" fullWidth onClick={() => handleUserDelete(userId)}>
+                Delete User
               </Button>
             </Box>
 
@@ -219,166 +280,170 @@ const User = () => {
                 title="Offer Letter & Dates"
               >
                 {active >= 1 ? (
-                  <Text c="green">Done</Text>
+                  <div>
+                    <Text c="green" fz="small">
+                      Completed
+                    </Text>
+                    <Button onClick={() => handleDelete("offer")}>
+                      Delete
+                    </Button>
+                  </div>
                 ) : (
-                  <Text c="dimmed" size="sm">
-                    <Code>Step:1</Code> ? "Upload offer letter Start date and
-                    End date"
-                    <Box>
-                      <label>Offer letter</label>
-                      <Input type="file" {...register("offerletter")} />
-                    </Box>
-                    {user?.status?.offerLetter && (
-                      <Text fz="xs" c="green">
-                        Check uploaded offer letter{" "}
-                        <a href={user.status.offerLetter}>Check here</a>
-                      </Text>
-                    )}
-                    <Flex justify={"space-around"}>
-                      <Box>
-                        <label>Start Date</label>
-                        <Input
-                          {...register("startDate")}
-                          label="Start date"
-                          type="date"
-                        />
-                      </Box>
-                      <Box>
-                        <label>End Date</label>
-                        <Input
-                          {...register("submissionDeadline")}
-                          label="End date"
-                          type="date"
-                        />
-                      </Box>
+                  <Box>
+                    <Text color="dimmed">
+                      Step 1: Upload offer letter, start date, and end date
+                    </Text>
+                    <Input type="file" {...register("offerletter")} />
+
+                    <Flex justify="space-between">
+                      <Input
+                        {...register("startDate")}
+                        label="Start Date"
+                        type="date"
+                      />
+                      <Input
+                        {...register("submissionDeadline")}
+                        label="End Date"
+                        type="date"
+                      />
                     </Flex>
-                  </Text>
+                  </Box>
                 )}
               </Timeline.Item>
+
               <Timeline.Item
                 bullet={<IconFileCertificate size={12} />}
                 title="Task Allocation"
               >
                 {active >= 2 ? (
                   <Box>
-                    <Code>Step:2</Code>
-                    <Text size="sm" c="green">
-                      Done
+                    <Text c="green" fz="sm">
+                      Completed
                     </Text>
-                    <Text size="sm" c="blue" onClick={taskOpen}>
-                      Check task
-                    </Text>
+                    <Button onClick={() => handleDelete("task")}>Delete</Button>
                   </Box>
                 ) : (
-                  <Text c="dimmed" size="sm">
-                    <Code>Step:2</Code>
-                    "Upload tasks for the user"
-                    <Text
-                      onClick={open}
-                      style={{ cursor: "pointer" }}
-                      c="blue"
-                      size="xs"
-                      mt={4}
-                    >
-                      Check here
-                    </Text>
-                  </Text>
+                  <Box>
+                    {active >= 1 ? (
+                      <Box>
+                        <Text color="dimmed">
+                          Step 2: Upload tasks for the user
+                          <Text
+                            onClick={open}
+                            color="blue"
+                            style={{ cursor: "pointer" }}
+                          >
+                            Check here
+                          </Text>
+                        </Text>
+                      </Box>
+                    ) : (
+                      <Text c="dimmed">
+                        Offer letter and dates has be specified
+                      </Text>
+                    )}
+                  </Box>
                 )}
               </Timeline.Item>
+
               <Timeline.Item
                 bullet={<IconClipboardCheck size={12} />}
                 title="Verify Tasks"
               >
                 {active >= 3 ? (
                   <Box>
-                    <Code>Step:3</Code>{" "}
-                    <Text size="sm" c="green">
-                      Done
+                    <Text c="green" fz="small">
+                      Completed
                     </Text>
+                    <Button onClick={() => handleDelete("verification")}>
+                      Delete
+                    </Button>
                   </Box>
                 ) : (
-                  <Text c="dimmed" size="sm">
-                    <Flex gap="sm">
-                      <Code>Step:3</Code>{" "}
-                      <Checkbox
-                        {...register("taskVerified")}
-                        label="Verify"
-                      ></Checkbox>
-                    </Flex>
-                    "Verify the task"
-                  </Text>
+                  <Box>
+                    {active >= 2 ? (
+                      <Box>
+                        <Checkbox
+                          {...register("taskVerified")}
+                          label="Verify"
+                        />
+                        <Text color="dimmed">Verify the task</Text>
+                      </Box>
+                    ) : (
+                      <Text c="dimmed">Submit Task Before Verification</Text>
+                    )}
+                  </Box>
                 )}
               </Timeline.Item>
+
               <Timeline.Item
                 bullet={<IconCircleCheck size={12} />}
-                title="Upload certificate"
+                title="Upload Certificate"
               >
                 {active >= 4 ? (
                   <Box>
-                    <Code>Step:4</Code>
-                    <Title c="green" order={4}>
+                    <Text c="green" fz="sm">
                       Completed
-                    </Title>
+                    </Text>
+                    <Button onClick={() => handleDelete("certificate")}>
+                      Delete
+                    </Button>
                   </Box>
                 ) : (
-                  <Text c="dimmed" size="sm">
-                    <Code>Step:4</Code> {"  "}
-                    <Box>
-                      <label>Certificate</label>
-                      <Input type="file" {...register("certificate")} />
-                    </Box>
-                    {active >= 4
-                      ? "Upload certificate"
-                      : "Change or Reupload certificate"}
-                  </Text>
+                  <Box>
+                    {active >= 3 ? (
+                      <Box>
+                        <Input type="file" {...register("certificate")} />
+                        <Text c="dimmed">Upload certificate</Text>
+                      </Box>
+                    ) : (
+                      <Box>
+                        <Text c="dimmed">
+                          Verify the Task Before giving Certificate
+                        </Text>
+                      </Box>
+                    )}
+                  </Box>
                 )}
               </Timeline.Item>
-              {errors?.root && (
-                <Text fz="sm" c="red">
-                  {errors?.root?.message}
-                </Text>
-              )}
+
+              {errors?.root && <Text color="red">{errors?.root?.message}</Text>}
             </Timeline>
           </Flex>
         </form>
       </Box>
 
-      <Modal opened={opened} onClose={close} title="Give task">
-        <TaskForm onSubmit={onSubmit} user={user} />
+      <Modal opened={opened} onClose={close} title="Give Task">
+        <TaskForm onSubmit={onSubmit} />
       </Modal>
-      <Modal opened={checkTask} onClose={taskClose} title="Check work">
+
+      <Modal opened={checkTask} onClose={taskClose} title="Check Work">
         <Box>
-          {user?.status?.taskSubmission?.map((task) => {
-            return (
-              <Paper m="md" key={task.taskName} shadow="md">
-                <Text c="red">{task.taskName}</Text>
-                <hr />
-                <a
-                  href={task.linkedIn}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  LinkedIn
-                </a>
-                <Text size="sm">{task.linkedIn}</Text>
-                <hr />
-                <a href={task.github} target="_blank" rel="noopener noreferrer">
-                  Github
-                </a>
-                <Text size="sm">{task.github}</Text>
-                <hr />
-                <a
-                  href={task.liveLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Live Link
-                </a>
-                <Text size="sm">{task.liveLink}</Text>
-              </Paper>
-            );
-          })}
+          {user?.status?.taskSubmission?.map((task) => (
+            <Paper
+              key={task.taskName}
+              shadow="md"
+              style={{ marginBottom: "10px" }}
+            >
+              <Text color="red">{task.taskName}</Text>
+              <a href={task.linkedIn} target="_blank" rel="noopener noreferrer">
+                LinkedIn
+              </a>
+              <Text size="sm">{task.linkedIn}</Text>
+              <a href={task.github} target="_blank" rel="noopener noreferrer">
+                GitHub
+              </a>
+              <Text size="sm">{task.github}</Text>
+              <a href={task.liveLink} target="_blank" rel="noopener noreferrer">
+                Live Link
+              </a>
+              <Text size="sm">{task.liveLink}</Text>
+            </Paper>
+          ))}
         </Box>
+        <Button onClick={() => handleDelete("submittedtask")}>
+          Delete Submitted Task
+        </Button>
       </Modal>
     </Container>
   );
