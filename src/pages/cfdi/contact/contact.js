@@ -15,7 +15,7 @@ import Header from "../../../header/header";
 import Footer from "../../../footer/footer";
 import styles from "./contact.module.css";
 import axios from "axios";
-import { url } from "../../../server-url";
+import { userUrl } from "../../../server-url";
 
 const schema = z.object({
   name: z.string().nonempty("Name is required"),
@@ -34,7 +34,7 @@ const Contact = () => {
 
   const onSubmit = async (data) => {
     try {
-      await axios.post(`${url}`, { data });
+      await axios.post(`${userUrl}/mail`, { data });
     } catch (error) {
       alert(error.response.data.message);
     }
